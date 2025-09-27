@@ -1,6 +1,6 @@
 export default {
   "appTitle": "Nyukers(C) Pixel Maker",
-  "appSubtitle": "Bring your idea to life here and now!",
+  "appSubtitle": "Nyukers (C)opyright, 2025",
   "appIconAlt": "Dragon Icon",
   "sourceImageLabel": "1. Image for Processing",
   "currentSourceAlt": "Current source",

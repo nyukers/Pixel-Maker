@@ -1,6 +1,6 @@
 export default {
   "appTitle": "Nyukers(C) Піксель-мейкер",
-  "appSubtitle": "Втілюйте свою ідею в життя тут і зараз!",
+  "appSubtitle": "Nyukers (C)opyright, 2025",
   "appIconAlt": "Іконка дракона",
   "sourceImageLabel": "1. Для обробки",
   "currentSourceAlt": "Поточне джерело",
