@@ -153,6 +153,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
                     {t.reanimateTab}
                 </button>
             </div>
+            
             {promptMode !== 'reanimate' ? (
                 <>
                   <div>
@@ -170,7 +171,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
                       />
                       <button 
                         onClick={() => onAddCustomPrompt(prompt)} 
-                        disabled={!prompt.trim() || allPresetPromptsFullText.includes(prompt.trim())}
+                        disabled={!prompt.trim() || allPresetPromptsFullText.includes(prompt.trim()) || customPrompts.includes(prompt.trim())}
                         className="absolute top-2 right-2 p-1.5 text-gray-400 hover:text-yellow-400 bg-gray-800 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed"
                         title={t.saveCustomPromptTitle}
                       >
@@ -180,7 +181,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
                   </div>
 
                   <div className="mt-6">
-                    <h3 className="text-sm font-medium text-gray-300 mb-2">{t.presetPromptsTitle}:</h3>
+                    <h3 className="text-sm font-medium text-gray-300 mb-2">{t.presetPromptsTitle} ({currentPresets.length}):</h3>
                     <div className="grid grid-cols-1 gap-2">
                       {currentPresets.map((p) => (
                         <div key={p.id} className="flex items-center space-x-1">
@@ -207,70 +208,107 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
                       ))}
                     </div>
                   </div>
-
-                  <div className="mt-6">
-                      <h3 className="text-sm font-medium text-gray-300 mb-2">{t.customPromptsTitle}:</h3>
-                      <div className="space-y-2">
-                          {customPrompts.length === 0 && (
-                              <p className="text-xs text-gray-400 text-center italic">{t.noCustomPrompts}</p>
-                          )}
-                          {customPrompts.map(p => (
-                               <div key={p} className="flex items-center space-x-1">
-                                  <button
-                                    onClick={() => setPrompt(p)}
-                                    className={`flex-grow text-xs text-left p-2 rounded-l-md transition truncate ${
-                                        prompt === p
-                                        ? 'bg-yellow-400 text-gray-900 font-semibold'
-                                        : 'bg-gray-700 text-gray-100 hover:bg-gray-600'
-                                    }`}
-                                    title={p}
-                                  >
-                                    {p}
-                                  </button>
-                                  <button
-                                      onClick={() => setPrompt(current => current ? `${current}, ${p}` : p)}
-                                      className="bg-gray-600 p-2 hover:bg-yellow-400 hover:text-gray-900 transition"
-                                      aria-label={`${t.appendPromptLabel}: ${p}`}
-                                      title={`${t.appendPromptTitle}: ${p}`}
-                                  >
-                                      <PlusIcon className="h-4 w-4"/>
-                                  </button>
-                                  <button
-                                      onClick={() => onDeleteCustomPrompt(p)}
-                                      className="bg-gray-600 p-2 rounded-r-md hover:bg-red-500 transition"
-                                      aria-label={`${t.deletePromptLabel}: ${p}`}
-                                      title={`${t.deletePromptTitle}: ${p}`}
-                                  >
-                                      <TrashIcon className="h-4 w-4"/>
-                                  </button>
-                              </div>
-                          ))}
-                      </div>
-                  </div>
                 </>
             ) : (
-                <div className="mt-6">
-                    <h3 className="text-sm font-medium text-gray-300 mb-2">{t.reanimatePresetsTitle}:</h3>
-                    {/* FIX: Corrected translation key from reanimateDescription to animateDescription to match the translation files. */}
-                    <p className="text-xs text-gray-400 mb-3">{t.animateDescription}</p>
-                    <div className="grid grid-cols-1 gap-2">
-                      {REANIMATE_PRESET_PROMPTS.map((p) => (
-                        <button
-                          key={p.id}
-                          onClick={() => setAnimationPrompt(p.prompt)}
-                          className={`w-full text-xs text-left p-2 rounded-md transition truncate ${
-                            animationPrompt === p.prompt
-                              ? 'bg-yellow-400 text-gray-900 font-semibold'
-                              : 'bg-gray-700 text-gray-100 hover:bg-gray-600'
-                          }`}
-                          title={p.prompt}
-                        >
-                          {t[p.nameKey as keyof typeof t] || p.id}
-                        </button>
-                      ))}
+                <>
+                    <div>
+                        <label htmlFor="animation-prompt-input" className="block text-sm font-medium text-gray-300 mb-2">
+                          {t.animatePromptLabel}
+                        </label>
+                        <div className="relative">
+                          <textarea
+                            id="animation-prompt-input"
+                            rows={4}
+                            className="w-full bg-gray-900 border border-gray-600 rounded-md p-2 pr-10 text-gray-100 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition"
+                            value={animationPrompt}
+                            onChange={(e) => setAnimationPrompt(e.target.value)}
+                            placeholder={t.animatePromptPlaceholder}
+                          />
+                          <button 
+                            onClick={() => onAddCustomPrompt(animationPrompt)} 
+                            disabled={!animationPrompt.trim() || allAnimationPresetPrompts.includes(animationPrompt.trim()) || customPrompts.includes(animationPrompt.trim())}
+                            className="absolute top-2 right-2 p-1.5 text-gray-400 hover:text-yellow-400 bg-gray-800 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            title={t.saveCustomPromptTitle}
+                          >
+                              <SaveIcon className="h-5 w-5"/>
+                          </button>
+                        </div>
                     </div>
-                </div>
+
+                    <div className="mt-6">
+                        <h3 className="text-sm font-medium text-gray-300 mb-2">{t.reanimatePresetsTitle}:</h3>
+                        <p className="text-xs text-gray-400 mb-3">{t.animateDescription}</p>
+                        <div className="grid grid-cols-1 gap-2">
+                          {REANIMATE_PRESET_PROMPTS.map((p) => (
+                            <button
+                              key={p.id}
+                              onClick={() => setAnimationPrompt(p.prompt)}
+                              className={`w-full text-xs text-left p-2 rounded-md transition truncate ${
+                                animationPrompt === p.prompt
+                                  ? 'bg-yellow-400 text-gray-900 font-semibold'
+                                  : 'bg-gray-700 text-gray-100 hover:bg-gray-600'
+                              }`}
+                              title={p.prompt}
+                            >
+                              {t[p.nameKey as keyof typeof t] || p.id}
+                            </button>
+                          ))}
+                        </div>
+                    </div>
+                </>
             )}
+            
+            <div className="mt-6">
+                <h3 className="text-sm font-medium text-gray-300 mb-2">{t.customPromptsTitle}:</h3>
+                <div className="space-y-2">
+                    {customPrompts.length === 0 && (
+                        <p className="text-xs text-gray-400 text-center italic">{t.noCustomPrompts}</p>
+                    )}
+                    {customPrompts.map(p => (
+                         <div key={p} className="flex items-center space-x-1">
+                            <button
+                              onClick={() => {
+                                if (promptMode === 'reanimate') {
+                                  setAnimationPrompt(p);
+                                } else {
+                                  setPrompt(p);
+                                }
+                              }}
+                              className={`flex-grow text-xs text-left p-2 rounded-l-md transition truncate ${
+                                  (promptMode === 'reanimate' ? animationPrompt : prompt) === p
+                                  ? 'bg-yellow-400 text-gray-900 font-semibold'
+                                  : 'bg-gray-700 text-gray-100 hover:bg-gray-600'
+                              }`}
+                              title={p}
+                            >
+                              {p}
+                            </button>
+                            <button
+                                onClick={() => {
+                                  if (promptMode === 'reanimate') {
+                                    setAnimationPrompt(current => current ? `${current}, ${p}` : p)
+                                  } else {
+                                    setPrompt(current => current ? `${current}, ${p}` : p)
+                                  }
+                                }}
+                                className="bg-gray-600 p-2 hover:bg-yellow-400 hover:text-gray-900 transition"
+                                aria-label={`${t.appendPromptLabel}: ${p}`}
+                                title={`${t.appendPromptTitle}: ${p}`}
+                            >
+                                <PlusIcon className="h-4 w-4"/>
+                            </button>
+                            <button
+                                onClick={() => onDeleteCustomPrompt(p)}
+                                className="bg-gray-600 p-2 rounded-r-md hover:bg-red-500 transition"
+                                aria-label={`${t.deletePromptLabel}: ${p}`}
+                                title={`${t.deletePromptTitle}: ${p}`}
+                            >
+                                <TrashIcon className="h-4 w-4"/>
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
       </div>
       
