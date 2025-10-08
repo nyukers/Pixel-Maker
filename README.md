@@ -4,6 +4,10 @@
 
 # Run and deploy your AI Studio app
 
+Користування Pixel AI Studio повністю БЕЗКОШТОВНЕ, але мусите мати облікову в Google.
+Ви тільки обмежені планом Free Tier де Google рахує кількість звернень, тобто генерацій, за хвилину. Як рахує - мені невідомо, алгоритми міняються часто. Єдине що гарантовано, що раптом платним він не стане.
+Тому прошу, користуйтеся та реалізуйте свою творчу уяву на повну. Підтримка T2I, I2I, I2V, retouch, masking, styling, animation, upscaling тощо на моделях Gemini 2.5 Flash (aka Nano Banana), Imagen та Veo.
+
 This contains everything you need to run your app locally.
 
 View your app in AI Studio: https://ai.studio/apps/drive/1aPqW_yllKk7ZKDpuh1gHpHzej4hH7oQm
