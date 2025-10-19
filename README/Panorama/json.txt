@@ -1,0 +1,28 @@
+{
+  "pipeline_name": "Seamless Panoramic Loop Creation",
+  "steps": [
+    {
+      "step_id": "expand_horizontally",
+      "task": "image_expansion",
+      "input_image": "YOUR_ORIGINAL_IMAGE_DATA_OR_URL", // Оригінальне зображення
+      "parameters": {
+        "direction": "horizontal",
+        "expansion_factor_width": 2.5, // Наприклад, розширити в 2.5 рази від оригінальної ширини
+        "maintain_aspect_ratio_height": true
+      },
+      "prompt": "Expand the provided image horizontally to create a broad panoramic view. Maintain the integrity of any central subjects.",
+      "output_name": "panoramic_intermediate_image" // Назва для посилання на результат цього кроку
+    },
+    {
+      "step_id": "make_seamless_loop",
+      "task": "image_seamless_loop_adjustment",
+      "input_image_ref": "panoramic_intermediate_image", // Посилання на вихід попереднього кроку
+      "parameters": {
+        "direction": "horizontal",
+        "seamless_edge_tolerance": 0.1 // Опціонально
+      },
+      "prompt": "Adjust the provided panoramic image to ensure the far left edge seamlessly connects with the far right edge, creating a perfect horizontal loop. The central content should remain untouched, focusing changes only on the outermost horizontal sections to achieve the seamless effect."
+    }
+  ],
+  "final_output_format": "PNG" // Формат кінцевого зображення
+}

@@ -1,0 +1,15 @@
+Gemini:
+Expand the provided image horizontally to create a panoramic view that forms a seamless loop. 
+The generated content on the far left should be designed to naturally and continuously connect with the content on 
+the far right, making the overall image capable of being tiled horizontally without visible seams. 
+Maintain the integrity and proportions of any central or prominent subjects within the original image, 
+ensuring they appear only once in the resulting seamless panorama.
+
+
+ChatGPT:
+Expand the provided image horizontally only to create a seamless circular panoramic view suitable for a horizontal 360° loop.
+The left and right edges must align perfectly without any visible seam or discontinuity when the image is tiled horizontally.
+Keep the original vertical composition and horizon intact — do not extend the image upward or downward.
+Maintain consistent lighting, texture, and perspective across the full width.
+Preserve the integrity of any central or key subjects, ensuring they appear only once and are not duplicated or distorted.
+Avoid introducing unrelated focal elements.

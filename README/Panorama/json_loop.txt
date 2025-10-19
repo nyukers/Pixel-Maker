@@ -1,0 +1,46 @@
+Ver 1:
+
+You are an image generation assistant. Your task is to process an image based on the JSON instruction provided below.
+{
+  "instruction": "create_seamless_panorama",
+  "parameters": {
+    "description": "Expand the provided image horizontally to create a panoramic view that forms a seamless loop. The left and right edges must connect perfectly. Maintain the style and central subject of the original image.",
+    "output_format": "image/jpeg"
+  },
+  "text_response_format": {
+    "type": "json",
+    "schema": {
+      "commentary": {
+        "type": "string",
+        "description": "A brief, one-sentence creative description of the generated panoramic scene."
+      }
+    }
+  }
+}
+Process the image according to these instructions and return the new image. In the text response, return ONLY the JSON object specified in 'text_response_format'.
+
+
+Ver 2:
+
+{
+  "Task": "Create a seamless horizontal panoramic loop from an image.",
+  "constraints": {
+    "no_distortion": true,
+    "maintain_subject_integrity": true
+  },
+  "steps": [
+    {
+      "step_id": 1,
+      "name": "Horizontal Expansion",
+      "instructions": "Take the input image and expand it horizontally by approximately 2.5 times its original width. The generated content should naturally extend the background elements (like sky, landscape, etc.) without distorting the main subject. Output this as 'expanded_panorama'."
+    },
+    {
+      "step_id": 2,
+      "name": "Seamless Loop Adjustment",
+      "instructions": "Take the 'expanded_panorama' image. Adjust the leftmost and rightmost sections of this image to ensure they seamlessly connect, creating a continuous horizontal loop without visible seams. Focus changes primarily on the edges to achieve the loop effect, preserving the central content as much as possible. Output this as 'final_seamless_loop'."
+    }
+  ],
+  "Deliverables": {
+    "final_seamless_loop_image": "final_seamless_loop"
+  }
+}
