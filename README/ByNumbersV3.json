@@ -1,0 +1,53 @@
+﻿{
+  "Task": "Convert a given source image into a 'Paint by Numbers' format, generating a lineart image with numbered color regions and a separate visual color legend.",
+  "constraints": {
+    "preserve_subject_integrity": true,
+    "maintain_original_aspect_ratio": true,
+    "clean_lineart_edges": true,
+    "numbers_legible_within_regions": true,
+    "legend_visually_clear_and_labeled_in_english": true,
+    "all_color_regions_must_be_fully_enclosed_by_lineart": true, // <--- ДОДАНО: НОВЕ ОБМЕЖЕННЯ
+    "no_gaps_in_enclosed_regions_for_coloring": true              // <--- ДОДАНО: НОВЕ ОБМЕЖЕННЯ
+  },
+  "parameters": {
+    "num_colors": {
+      "type": "integer",
+      "min": 1,
+      "max": 256,
+      "default": 32,
+      "description": "The desired number of distinct colors to be used for the 'Paint by Numbers' output. This determines the number of numbered regions and entries in the legend."
+    }
+  },
+  "steps": [
+    {
+      "step_id": 1,
+      "name": "Lineart Extraction and Enclosure", // <--- НАЗВА КРОКУ ОНОВЛЕНА
+      "instructions": "Take the input image. Analyze its content to accurately detect and extract prominent edges and outlines, generating a clean, high-resolution lineart (black lines on a white background). **Crucially, all regions defined by these lines must be fully enclosed, creating distinct, sealed areas suitable for flood-filling with color. Any potential gaps or openings in the lineart that would prevent an area from being fully enclosed must be automatically closed.** The lineart should capture the essential forms and details of the original image. Output this intermediate image as 'extracted_lineart'."
+    },
+    {
+      "step_id": 2,
+      "name": "Color Palette Generation and Segmentation",
+      "instructions": "Take the original input image and the 'num_colors' parameter. Analyze the original image to identify 'num_colors' dominant and representative colors. Segment the original image into distinct regions, where each region corresponds to one of the identified dominant colors. These regions will later be assigned numbers. Output the identified color palette as an ordered list of RGB/HEX values and the segmented regions for mapping."
+    },
+    {
+      "step_id": 3,
+      "name": "Numbering Overlay on Lineart",
+      "instructions": "Take the 'extracted_lineart' image from Step 1 and the segmented regions/color mapping from Step 2. Assign a unique sequential number (from 1 to 'num_colors') to each distinct color in the palette. Overlay these numbers onto the 'extracted_lineart' image. Each number must be placed centrally within its corresponding segmented region, ensuring legibility and avoiding overlap with lines where possible. Output this numbered lineart image as 'final_numbered_lineart'."
+    },
+    {
+      "step_id": 4,
+      "name": "Color Legend Image Generation",
+      "instructions": "Take the identified color palette and their corresponding numbers from Step 2. Generate a separate image representing the 'LEGEND OF COLORS'. This image should visually display a grid of color swatches, where each swatch contains its assigned number. The title 'LEGEND OF COLORS' must be prominently displayed at the top of this image in English. The original input image (or a representative thumbnail) should be included at the top of the legend for context. Output this image as 'final_color_legend_image'."
+    }
+  ],
+  "Deliverables": {
+    "numbered_lineart_image": {
+      "filename_pattern": "paint_by_numbers_lineart_{timestamp}.jpeg",
+      "format": "image/jpeg"
+    },
+    "color_legend_image": {
+      "filename_pattern": "paint_by_numbers_legend_{timestamp}.jpeg",
+      "format": "image/jpeg"
+    }
+  }
+}

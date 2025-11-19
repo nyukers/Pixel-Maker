@@ -1,0 +1,59 @@
+{
+  "prompt_name": "Image to Paint by Numbers (Lineart with N-Colors)",
+  "description": "Перетворює надане зображення на контурний малюнок (lineart) з нумерацією для розмальовки за принципом 'картинка за номерами', з можливістю вказати кількість кольорів.",
+  "steps": [
+    {
+      "step_id": 1,
+      "action": "Input Image Upload",
+      "details": "Користувач завантажує вихідне зображення, яке потрібно перетворити на розмальовку за номерами."
+    },
+    {
+      "step_id": 2,
+      "action": "User Specifies Color Count",
+      "details": "Користувач вказує бажану кількість кольорів для розмальовки (наприклад, 16, 32, 64).",
+      "parameter": {
+        "name": "num_colors",
+        "type": "integer",
+        "min": 1,
+        "max": 256,
+        "default": 32,
+        "description": "Кількість кольорів, які будуть використані для нумерації областей на зображенні."
+      }
+    },
+    {
+      "step_id": 3,
+      "action": "Image Transformation: Lineart Extraction",
+      "details": "Вихідне зображення аналізується для виділення чітких контурів та створення чорно-білого lineart зображення."
+    },
+    {
+      "step_id": 4,
+      "action": "Image Transformation: Color Area Segmentation",
+      "details": "Оригінальне зображення сегментується на області, які відповідатимуть різним кольорам, на основі 'num_colors'."
+    },
+    {
+      "step_id": 5,
+      "action": "Image Transformation: Numbering Overlay",
+      "details": "Кожній сегментованій області на lineart зображенні присвоюється унікальний номер (від 1 до 'num_colors'). Номери розміщуються всередині відповідних областей."
+    },
+    {
+      "step_id": 6,
+      "action": "Output Generation: Lineart Image",
+      "details": "Генерується фінальне зображення lineart з нанесеними номерами. Це основний файл для розмальовки.",
+      "output_type": "image/jpeg",
+      "filename_pattern": "paint_by_numbers_lineart_{timestamp}.jpeg"
+    },
+    {
+      "step_id": 7,
+      "action": "Output Generation: Color Legend Image (Separate File)",
+      "details": "Створюється окреме зображення (JPEG), яке візуально відображає палітру кольорів з відповідними номерами. Це забезпечує легке сприйняття для користувача.",
+      "output_type": "image/jpeg",
+      "filename_pattern": "paint_by_numbers_legend_{timestamp}.jpeg",
+      "legend_layout": "Сітка з кольоровими квадратами/прямокутниками, кожен з яких містить свій номер."
+    },
+    {
+      "step_id": 8,
+      "action": "Display Results",
+      "details": "Готове зображення 'картинка за номерами' та зображення легенди відображаються користувачеві."
+    }
+  ]
+}
