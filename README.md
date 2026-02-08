@@ -8,7 +8,7 @@
 Ви тільки обмежені планом Free Tier де Google рахує кількість звернень, тобто генерацій, за хвилину. Тому прошу, користуйтеся та реалізуйте свою творчу уяву на повну. 
 Підтримка T2I, I2I, I2V, retouch, masking, styling, animation, upscaling тощо на моделях Gemini 2.5 Flash (aka Nano Banana), Imagen та Veo.
 
-View Pixel AI Studio online: https://ai.studio/apps/drive/1aPqW_yllKk7ZKDpuh1gHpHzej4hH7oQm
+Touch Pixel AI Studio online: https://tinyurl.com/pixelaistudio
 
 ## Run Locally
 
