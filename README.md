@@ -2,7 +2,7 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/nyukers/Pixel-Maker/blob/main/README/pixelmaker2.jpg" />
 </div>
 
-# Run and deploy AI Studio app
+# Run Pixel AI Studio app
 
 Користування Pixel AI Studio повністю БЕЗКОШТОВНЕ, але мусите мати облікову в Google.
 Ви тільки обмежені планом Free Tier де Google рахує кількість звернень, тобто генерацій, за хвилину. Тому прошу, користуйтеся та реалізуйте свою творчу уяву на повну. 
